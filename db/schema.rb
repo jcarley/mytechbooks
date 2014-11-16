@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20141116184320) do
     t.string   "asin"
     t.string   "amount"
     t.string   "details_url"
-    t.string   "description"
+    t.text     "description"
     t.string   "small_img_url"
     t.string   "medium_img_url"
     t.string   "large_img_url"

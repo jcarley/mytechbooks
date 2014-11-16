@@ -8,7 +8,7 @@ class Book < ActiveRecord::Base
     attrs = {
       title: item.title,
       isbn: item.isbn,
-      author: item.author,
+      author: item.author.join(", "),
       ean: item.ean,
       pages: item.page_count,
       binding: item.binding,

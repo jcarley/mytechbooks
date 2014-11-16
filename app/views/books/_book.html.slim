@@ -1,0 +1,18 @@
+.row id="#{book.id}"
+  .large-2.columns
+    = image_tag book.medium_img_url
+  .large-10.columns
+    .row
+      .large-8.columns
+        h5
+          = book.title
+        h6.subheader
+          | #{book.author} (#{book.published_on.strftime("%b %Y")})
+        dl
+          dd
+            | MSRP: #{book.formatted_price}
+          dd
+            | Pages: #{book.pages}
+  .row
+    .large-12.columns
+      hr

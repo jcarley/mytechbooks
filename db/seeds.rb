@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+amz = Services::AmazonSimpleSearch.new
+items = amz.search("9780321200686")
+book = Book.from_amz_item(items.first)
+book.save
+
