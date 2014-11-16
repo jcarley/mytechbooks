@@ -21,12 +21,12 @@ RSpec.describe Book, type: :model do
       expect(subject).to be_a_new Book
     end
 
-    it "has a title" do
-      expect(subject.title).to_not be_nil
-    end
-
-    it "has a isbn" do
-      expect(subject.isbn).to_not be_nil
+    context "has all its attributes" do
+      %w(title author ean isbn pages binding edition formatted_price asin amount details_url description small_img_url medium_img_url large_img_url publisher published_on).each do |attr|
+        it "has a #{attr}" do
+          expect(subject.attributes[attr]).to_not be_nil
+        end
+      end
     end
 
   end
