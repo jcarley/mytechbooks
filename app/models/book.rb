@@ -6,9 +6,9 @@ class Book < ActiveRecord::Base
   def self.from_amz_item(item)
 
     attrs = {
-      title: item.title,
+      title: coerce(item.title),
       isbn: item.isbn,
-      author: item.author.join(", "),
+      author: coerce(item.author),
       ean: item.ean,
       pages: item.page_count,
       binding: item.binding,
@@ -17,7 +17,7 @@ class Book < ActiveRecord::Base
       asin: item.asin,
       amount: item.amount,
       details_url: item.details_url,
-      description: item.editorial_reviews!.editorial_review!.content,
+      description: "",
       small_img_url: item.small_image.url,
       medium_img_url: item.medium_image.url,
       large_img_url: item.image_url,
@@ -26,6 +26,27 @@ class Book < ActiveRecord::Base
     }
 
     Book.new(attrs)
+  end
+
+  def self.coerce(value)
+    value = value.is_a?(Array) ? value.join(", ") : value
+    truncate(value)
+  end
+
+  def self.truncate(value)
+    if value.is_a?(String) && value.length > 255
+      value[0..250] + " ..."
+    else
+      value
+    end
+  end
+
+  def formatted_published_on
+    if published_on
+      published_on.strftime("%b %Y")
+    else
+      "not available"
+    end
   end
 
 end

@@ -8,7 +8,11 @@
 
 
 amz = Services::AmazonSimpleSearch.new
-items = amz.search("9780321200686")
+items = amz.query("9780321200686")
 book = Book.from_amz_item(items.first)
 book.save
 
+body = {:title => "Sleepy Hollow", :isbn => "1234567890", author: "Chris Johnson"}.to_json
+5.times do
+  CommandSource.create(user_id: 123, body: body, class_type: "Books::CreateBookCommand")
+end

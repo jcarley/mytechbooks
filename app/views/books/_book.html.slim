@@ -7,7 +7,7 @@
         h5
           = book.title
         h6.subheader
-          | #{book.author} (#{book.published_on.strftime("%b %Y")})
+          | #{book.author} (#{book.formatted_published_on})
         dl
           dd
             | MSRP: #{book.formatted_price}

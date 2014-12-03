@@ -21,3 +21,7 @@ log
 
 # Ignore application configuration
 /config/application.yml
+
+scripts/upload.sh
+scripts/upload-noop.sh
+failures.txt

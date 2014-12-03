@@ -9,7 +9,7 @@ RSpec.describe Book, type: :model do
 
     before(:all) do
       amz = Services::AmazonSimpleSearch.new
-      items = amz.search("9780321200686")
+      items = amz.query("9780321200686")
       @book_item = items.first
     end
 

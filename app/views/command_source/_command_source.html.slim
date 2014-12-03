@@ -1,0 +1,14 @@
+.row id="#{command_source.id}"
+  .large-12.columns
+    .large-1.columns
+      = command_source.id
+    .large-1.columns
+      = command_source.user_id
+    .large-4.columns
+      = command_source.class_type
+    .large-6.columns
+      = command_source.body.truncate(60)
+.row
+  .large-12.columns
+    hr
+

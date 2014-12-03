@@ -1,0 +1,11 @@
+.keep
+tmp/*
+log/*
+.vagrant
+.git
+.gitignore
+.DS_Store
+.bundle
+failures.txt
+upload.sh
+upload-noop.sh

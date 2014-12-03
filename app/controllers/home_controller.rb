@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
 
   def index
-    @books = Book.all
+    query = AllBooksQuery.new
+    @books = query.to_a
   end
 
 end
