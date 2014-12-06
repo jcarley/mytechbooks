@@ -1,4 +1,4 @@
-module Middlware
+module Middleware
   class CommandRunner
 
     def initialize(app)
@@ -7,7 +7,7 @@ module Middlware
 
     def call(env)
       cmd = env[:command]
-      cmd.execute if cmd
+      cmd.execute if cmd && cmd.valid?
       @app.call(env) if @app
     end
 

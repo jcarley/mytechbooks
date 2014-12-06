@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+
   def show
     @book = Book.find(params[:id])
   end
@@ -8,8 +9,7 @@ class BooksController < ApplicationController
   end
 
   def create
-    command_bus = CommandBus.new
-    command = command_bus.execute(:create_book, params[:book])
+    command = Domain.execute(:create_book, params[:book])
 
     if command.success?
       redirect_to book_url(command.id)
@@ -24,8 +24,7 @@ class BooksController < ApplicationController
   end
 
   def update
-    command_bus = CommandBus.new
-    command = command_bus.execute(:update_book, params[:id], params[:book])
+    command = Domain.execute(:update_book, params[:id], params[:book])
 
     if command.success?
       redirect_to book_url(command.id)
@@ -36,5 +35,13 @@ class BooksController < ApplicationController
   end
 
   def destroy
+    command = Domain.execute(:delete_book, params.permit(:id))
+
+    if command.success?
+      redirect_to action: :show
+    else
+      render :edit
+    end
   end
+
 end

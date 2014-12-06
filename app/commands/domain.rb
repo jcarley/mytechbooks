@@ -1,6 +1,11 @@
-class CommandBus
+class Domain
+  include Singleton
 
   attr_reader :cache
+
+  def self.execute(command, *args)
+    instance.execute(command, *args)
+  end
 
   def initialize
     @cache = {}
@@ -15,13 +20,14 @@ class CommandBus
   end
 
   def lookup(command_key)
-    self.cache[command_key]
+    cache[command_key]
   end
 
   def default_middleware
     @stack ||= Middleware::Builder.new do
-      use Middlware::CommandRecorder
-      use Middlware::CommandRunner
+      use Middleware::CommandRecorder
+      use Middleware::Benchmarker
+      use Middleware::CommandRunner
     end
     @stack
   end
