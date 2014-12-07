@@ -3,6 +3,10 @@ module Books
 
     attr_accessor :id
 
+    def initialize(id)
+      super(:id => id)
+    end
+
     def execute
       result = Book.destroy(self.id)
       @success = result.destroyed?

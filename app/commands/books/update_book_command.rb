@@ -1,9 +1,7 @@
 module Books
   class UpdateBookCommand < Command
 
-    attr_reader :id
-
-    attr_accessor :title, :isbn, :author, :ean, :pages, :binding, :edition,
+    attr_accessor :id, :title, :isbn, :author, :ean, :pages, :binding, :edition,
       :formatted_price, :asin, :amount, :details_url, :description,
       :small_img_url, :medium_img_url, :large_img_url, :publisher, :published_on
 

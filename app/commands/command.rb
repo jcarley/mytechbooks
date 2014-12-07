@@ -36,7 +36,7 @@ class Command
   def attributes
     attrs = {}
     self.class.attributes.each do |key|
-      attrs[key] = nil
+      attrs[key] = self.public_send("#{key}")
     end
     attrs
   end
