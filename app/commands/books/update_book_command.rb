@@ -12,9 +12,8 @@ module Books
 
     def execute
       book = Book.find(self.id)
-      if book.update_attributes(self.to_params)
-        @id = book.id
-      end
+      book.update_attributes!(self.to_params)
+      @id = book.id
     end
 
   end

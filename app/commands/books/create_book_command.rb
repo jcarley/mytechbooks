@@ -12,9 +12,8 @@ module Books
 
     def execute
       book = Book.new(self.to_params)
-      if book.save!
-        @id = book.id
-      end
+      book.save!
+      @id = book.id
     end
   end
 end
