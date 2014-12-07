@@ -14,14 +14,7 @@ module Books
       book = Book.find(self.id)
       if book.update_attributes(self.to_params)
         @id = book.id
-        @success = true
-      else
-        @success = false
       end
-    end
-
-    def success?
-      @success
     end
 
   end

@@ -10,7 +10,7 @@ class BooksController < ApplicationController
 
   def create
     cmd = Books::CreateBookCommand.new(book_params)
-    if successful? Domain.execute(cmd)
+    if Domain.execute(cmd).is_successful?
       redirect_to book_url(cmd.id)
     else
       @book = Book.new(cmd.to_params)
@@ -24,7 +24,7 @@ class BooksController < ApplicationController
 
   def update
     cmd = Books::UpdateBookCommand.new(id_params, book_params)
-    if successful? Domain.execute(cmd)
+    if Domain.execute(cmd).is_successful?
       redirect_to book_url(cmd.id)
     else
       @book = Book.find(params[:id])
@@ -34,7 +34,7 @@ class BooksController < ApplicationController
 
   def destroy
     cmd = Books::DeleteBookCommand.new(id_params)
-    if successful? Domain.execute(cmd)
+    if Domain.execute(cmd).is_successful?
       redirect_to action: :show
     else
       render :edit
@@ -43,14 +43,8 @@ class BooksController < ApplicationController
 
   private
 
-  def successful?(command)
-    command.success?
-  end
-
   def book_params
     params.require(:book)
-  rescue ActionController::ParameterMissing => e
-    nil
   end
 
   def id_params

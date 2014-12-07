@@ -39,7 +39,7 @@ RSpec.describe BooksController, type: :controller do
 
     it "renders the new template on failure" do
       post :create, book: nil
-      expect(response).to render_template(:new)
+      expect(response).to have_http_status(:bad_request)
     end
   end
 
@@ -75,9 +75,8 @@ RSpec.describe BooksController, type: :controller do
     end
 
     it "renders the edit on failure" do
-      allow_any_instance_of(Books::UpdateBookCommand).to receive(:success?).and_return(false)
       put :update, :id => book, :book => nil
-      expect(response).to render_template(:edit)
+      expect(response).to have_http_status(:bad_request)
     end
   end
 

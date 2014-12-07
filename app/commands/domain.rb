@@ -6,8 +6,9 @@ class Domain
   end
 
   def execute(command)
-    default_middleware.call(:command => command)
-    command
+    env = {:command => command}
+    default_middleware.call(env)
+    env[:command_result]
   end
 
   def default_middleware
