@@ -10,16 +10,20 @@ module Middleware
 
     def call(env)
       cmd = env[:command]
-      env[:command_result] = CommandResult.new(cmd)
 
-      throw MissingCommandError if cmd.nil?
-      throw CommandInvalidError unless cmd.valid?
+      result = CommandResult.new(cmd).tap do |cr|
+        begin
+          throw MissingCommandError if cmd.nil?
+          throw CommandInvalidError unless cmd.valid?
+          cmd.execute
+        rescue StandardError => e
+          cr.error = e
+        end
+      end
 
-      cmd.execute
+      env[:command_result] = result
 
       @app.call(env) if @app
-    rescue StandardError => e
-      env[:command_result].error = e
     end
 
   end
