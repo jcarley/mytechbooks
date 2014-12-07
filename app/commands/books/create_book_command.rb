@@ -1,8 +1,6 @@
 module Books
   class CreateBookCommand < Command
 
-    class BookCreateFailedError < StandardError; end;
-
     attr_reader :id
 
     attr_accessor :title, :isbn, :author, :ean, :pages, :binding, :edition,
@@ -14,10 +12,8 @@ module Books
 
     def execute
       book = Book.new(self.to_params)
-      if book.save
+      if book.save!
         @id = book.id
-      else
-        raise BookCreateFailedError
       end
     end
   end
