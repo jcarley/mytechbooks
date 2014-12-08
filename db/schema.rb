@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141202153807) do
+ActiveRecord::Schema.define(version: 20141206000941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20141202153807) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "elapsed"
   end
 
   add_index "command_sources", ["class_type"], name: "index_command_sources_on_class_type", using: :btree

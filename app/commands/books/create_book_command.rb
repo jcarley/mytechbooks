@@ -11,20 +11,9 @@ module Books
     validates :isbn, presence: true
 
     def execute
-      if valid?
-        book = Book.new(self.to_params)
-        if book.save
-          @id = book.id
-          @success = true
-        else
-          @success = false
-        end
-      end
+      book = Book.new(self.to_params)
+      book.save!
+      @id = book.id
     end
-
-    def success?
-      @success
-    end
-
   end
 end

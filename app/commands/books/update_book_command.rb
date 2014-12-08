@@ -1,9 +1,7 @@
 module Books
   class UpdateBookCommand < Command
 
-    attr_reader :id
-
-    attr_accessor :title, :isbn, :author, :ean, :pages, :binding, :edition,
+    attr_accessor :id, :title, :isbn, :author, :ean, :pages, :binding, :edition,
       :formatted_price, :asin, :amount, :details_url, :description,
       :small_img_url, :medium_img_url, :large_img_url, :publisher, :published_on
 
@@ -14,16 +12,8 @@ module Books
 
     def execute
       book = Book.find(self.id)
-      if book.update_attributes(self.to_params)
-        @id = book.id
-        @success = true
-      else
-        @success = false
-      end
-    end
-
-    def success?
-      @success
+      book.update_attributes!(self.to_params)
+      @id = book.id
     end
 
   end

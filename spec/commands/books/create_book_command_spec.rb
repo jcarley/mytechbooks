@@ -48,8 +48,8 @@ RSpec.describe Books::CreateBookCommand do
     let(:params) { {:title => "Sleepy Hollow", :isbn => "1234567890"} }
 
     it "creates a book" do
-      command_bus = CommandBus.new
-      expect { command_bus.execute(:create_book, params) }.to change(Book, :count).by(1)
+      cmd = Books::CreateBookCommand.new params
+      expect { Domain.execute(cmd) }.to change(Book, :count).by(1)
     end
   end
 

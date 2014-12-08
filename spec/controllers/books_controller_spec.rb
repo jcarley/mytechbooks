@@ -39,7 +39,7 @@ RSpec.describe BooksController, type: :controller do
 
     it "renders the new template on failure" do
       post :create, book: nil
-      expect(response).to render_template(:new)
+      expect(response).to have_http_status(:bad_request)
     end
   end
 
@@ -75,18 +75,39 @@ RSpec.describe BooksController, type: :controller do
     end
 
     it "renders the edit on failure" do
-      allow_any_instance_of(Books::UpdateBookCommand).to receive(:success?).and_return(false)
       put :update, :id => book, :book => nil
-      expect(response).to render_template(:edit)
+      expect(response).to have_http_status(:bad_request)
     end
   end
 
 
   describe "DELETE destroy" do
-    it "returns http success" do
-      delete :destroy, id: book
-      expect(response).to have_http_status(:success)
+
+    context "when the book record exists" do
+      let!(:book) { FactoryGirl.create(:book) }
+
+      it "removes a book" do
+        expect { delete :destroy, id: book }.to change(Book, :count)
+      end
+
+      it "redirects to the show on success" do
+        delete :destroy, id: book
+        expect(response).to redirect_to(action: :show)
+      end
+    end
+
+    context "when the book record does not exist" do
+
+      it "is not successful" do
+        expect { delete :destroy, id: 1 }.to_not change(Book, :count)
+      end
+
+      it "renders edit" do
+        delete :destroy, id: 1
+        expect(response).to render_template(:edit)
+      end
     end
   end
+
 
 end
