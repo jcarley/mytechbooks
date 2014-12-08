@@ -31,4 +31,13 @@ RSpec.describe Book, type: :model do
 
   end
 
+  describe ".create_book" do
+
+    it "creates a new book" do
+      attrs = FactoryGirl.attributes_for(:book)
+      expect { Book.create_book(attrs) }.to change(Book, :count).by(1)
+    end
+
+  end
+
 end
