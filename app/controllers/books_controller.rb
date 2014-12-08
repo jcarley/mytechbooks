@@ -5,7 +5,7 @@ class BooksController < ApplicationController
   end
 
   def new
-    @book = Book.new
+    @book = Books::CreateBookCommand.new
   end
 
   def create

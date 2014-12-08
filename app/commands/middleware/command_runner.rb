@@ -2,7 +2,6 @@ module Middleware
   class CommandRunner
 
     class MissingCommandError < StandardError; end;
-    class CommandInvalidError < StandardError; end;
 
     def initialize(app)
       @app = app
@@ -13,9 +12,8 @@ module Middleware
 
       result = CommandResult.new(cmd).tap do |cr|
         begin
-          throw MissingCommandError if cmd.nil?
-          throw CommandInvalidError unless cmd.valid?
-          cmd.execute
+          throw MissingCommandError if cr.command.nil?
+          cr.command.run
         rescue StandardError => e
           cr.error = e
         end

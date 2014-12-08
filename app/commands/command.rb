@@ -2,7 +2,7 @@ class Command
   include ActiveModel::Validations
   include ActiveModel::Serializers::JSON
 
-  class Command::NotImplementedError < StandardError; end
+  class NotImplementedError < StandardError; end
 
   def self.attr_accessor(*vars)
     @attributes ||= []
@@ -43,6 +43,10 @@ class Command
 
   def to_params
     ::HashWithIndifferentAccess.new(attributes_hash)
+  end
+
+  def run
+    self.execute if self.valid?
   end
 
   def execute
