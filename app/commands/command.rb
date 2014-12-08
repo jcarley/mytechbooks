@@ -24,7 +24,7 @@ class Command
   end
 
   def initialize(params = nil)
-    self.attributes = params
+    self.attributes = params if params
   end
 
   def attributes=(params)
