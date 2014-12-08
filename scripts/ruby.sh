@@ -16,24 +16,24 @@ fancy_echo "Installing libraries for common gem dependencies ..."
 
 if [[ ! -d "$HOME/.rbenv" ]]; then
   fancy_echo "Installing rbenv, to change Ruby versions ..."
-    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    git clone https://github.com/sstephenson/rbenv.git $HOME/.rbenv
 
-    if ! grep -qs "rbenv init" ~/.bashrc; then
-      printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.bashrc
-      printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.bashrc
+    if ! grep -qs "rbenv init" $HOME/.bashrc; then
+      printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> $HOME/.bashrc
+      printf 'eval "$(rbenv init - --no-rehash)"\n' >> $HOME/.bashrc
     fi
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
   fancy_echo "Installing rbenv-gem-rehash so the shell automatically picks up binaries after installing gems with binaries..."
     git clone https://github.com/sstephenson/rbenv-gem-rehash.git \
-      ~/.rbenv/plugins/rbenv-gem-rehash
+      $HOME/.rbenv/plugins/rbenv-gem-rehash
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
   fancy_echo "Installing ruby-build, to install Rubies ..."
     git clone https://github.com/sstephenson/ruby-build.git \
-      ~/.rbenv/plugins/ruby-build
+      $HOME/.rbenv/plugins/ruby-build
 fi
 
 ruby_version="2.1.5"

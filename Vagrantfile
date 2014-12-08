@@ -16,16 +16,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.cpus = 4
     v.customize ["modifyvm", :id,
                  "--nictype1", "Am79C973",
-                 "--nictype2", "Am79C973",
-                 "--natdnshostresolver1", "on"]
+                 "--nictype2", "Am79C973"]
   end
 
   config.vbguest.auto_reboot = true
-  config.vm.box = "jcarley/ubuntu1404-docker-puppet"
+  # config.vm.box = "jcarley/ubuntu1404-docker-puppet"
+  config.vm.box = "ubuntu/trusty64"
 
-  config.vm.provision "shell", path: "scripts/base.sh"
-  config.vm.provision "shell", path: "scripts/database.sh"
-  config.vm.provision "shell", path: "scripts/ruby.sh"
+  # config.vm.provision "shell", path: "scripts/base.sh"
+  # config.vm.provision "shell", path: "scripts/database.sh"
+  # config.vm.provision "shell", path: "scripts/ruby.sh"
+  config.vm.provision "shell", path: "scripts/runner.sh"
 
   config.vm.network :private_network, ip: "33.33.33.4"
   config.vm.network :forwarded_port, guest: 3000, host: 3000, :auto => true
