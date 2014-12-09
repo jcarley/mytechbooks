@@ -32,7 +32,6 @@ module Entity
   end
 
   def apply_event(name, attributes)
-    binding.pry
     event = Event.new(:name => name, :data => attributes)
     do_apply event
     event.aggregate_uid = uid

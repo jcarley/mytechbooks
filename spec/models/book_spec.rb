@@ -38,6 +38,23 @@ RSpec.describe Book, type: :model do
       expect { Book.create_book(attrs) }.to change(Book, :count).by(1)
     end
 
+    it "adds a new uid" do
+      attrs = FactoryGirl.attributes_for(:book)
+      book = Book.create_book(attrs)
+      expect(book.uid).to_not be_nil
+    end
+
+    it "adds a new event to applied events" do
+      attrs = FactoryGirl.attributes_for(:book)
+      book = Book.create_book(attrs)
+      expect(book.applied_events.count).to be(1)
+    end
+
+    it "creates a new event record" do
+      attrs = FactoryGirl.attributes_for(:book)
+      expect { Book.create_book(attrs) }.to change(Event, :count).by(1)
+    end
+
   end
 
 end

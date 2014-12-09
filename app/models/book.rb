@@ -35,16 +35,12 @@ class Book < ActiveRecord::Base
   end
 
   def self.truncate(value)
-    if value.is_a?(String) && value.length > 255
-      value[0..250] + " ..."
-    else
-      value
-    end
+    value.truncate(255)
   end
 
   def self.create_book(params)
     book = Book.new
-    book.apply_event(:created_book, params)
+    book.apply_event(:created_book, params.merge(:uid => new_uid))
     book
   end
 
