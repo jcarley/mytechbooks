@@ -12,6 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider :virtualbox do |v|
+    # config.vbguest.auto_reboot = true
     v.memory = 2048
     v.cpus = 4
     v.customize ["modifyvm", :id,
@@ -19,7 +20,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                  "--nictype2", "Am79C973"]
   end
 
-  config.vbguest.auto_reboot = true
   # config.vm.box = "jcarley/ubuntu1404-docker-puppet"
   config.vm.box = "ubuntu/trusty64"
 
