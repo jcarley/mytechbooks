@@ -4,7 +4,13 @@ class Book < ActiveRecord::Base
   validates :title, presence: true
   validates :isbn, presence: true
 
-  def self.from_amz_item(item)
+  def self.create_book(params)
+    book = Book.new
+    book.apply_event(:created_book, params.merge(:uid => new_uid))
+    book
+  end
+
+  def self.create_from_amz_item(item)
 
     attrs = {
       title: coerce(item.title),
@@ -26,7 +32,7 @@ class Book < ActiveRecord::Base
       published_on: item.publication_date
     }
 
-    Book.new(attrs)
+    self.create_book(attrs)
   end
 
   def self.coerce(value)
@@ -38,11 +44,6 @@ class Book < ActiveRecord::Base
     value.truncate(255)
   end
 
-  def self.create_book(params)
-    book = Book.new
-    book.apply_event(:created_book, params.merge(:uid => new_uid))
-    book
-  end
 
   def formatted_published_on
     if published_on

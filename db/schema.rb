@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141209151531) do
+ActiveRecord::Schema.define(version: 20141209192801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20141209151531) do
   add_index "command_sources", ["class_type"], name: "index_command_sources_on_class_type", using: :btree
   add_index "command_sources", ["user_id"], name: "index_command_sources_on_user_id", using: :btree
 
-  create_table "events", force: true do |t|
+  create_table "domain_events", force: true do |t|
     t.string   "name"
     t.text     "data"
     t.datetime "created_at"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20141209151531) do
     t.string   "aggregate_uid"
   end
 
-  add_index "events", ["aggregate_uid"], name: "index_events_on_aggregate_uid", using: :btree
-  add_index "events", ["name"], name: "index_events_on_name", using: :btree
+  add_index "domain_events", ["aggregate_uid"], name: "index_domain_events_on_aggregate_uid", using: :btree
+  add_index "domain_events", ["name"], name: "index_domain_events_on_name", using: :btree
 
 end

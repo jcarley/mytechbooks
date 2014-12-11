@@ -5,20 +5,27 @@ RSpec.describe Book, type: :model do
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:isbn) }
 
-  describe ".from_amz_item" do
+  describe ".create_from_amz_item" do
 
     before(:all) do
-      amz = Services::AmazonSimpleSearch.new
-      items = amz.query("9780321200686")
-      @book_item = items.first
+      # amz = Services::AmazonSimpleSearch.new
+      # items = amz.query("9780321200686")
+      # File.open("test.txt", "w+") do |f|
+        # f.puts(items.first.to_json)
+      # end
+      # @book_item = items.first
+      binding.pry
+      json = File.readlines("spec/support/book.json").join
+      @book_item = ActiveSupport::JSON.decode(json)
+      puts "hello"
     end
 
     let(:item) { @book_item }
 
-    subject { Book.from_amz_item(item) }
+    subject { Book.create_from_amz_item(item) }
 
     it "returns an instace of Book" do
-      expect(subject).to be_a_new Book
+      expect(subject).to be_an_instance_of Book
     end
 
     context "has all its attributes" do

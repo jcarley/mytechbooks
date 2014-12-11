@@ -1,10 +1,8 @@
 module Entity
+  extend ActiveSupport::Concern
 
-  def self.included(base)
-    base.class_eval do
-      attr_accessor :uid
-    end
-    base.extend ClassMethods
+  included do
+    attr_accessor :uid
   end
 
   module ClassMethods
@@ -19,10 +17,6 @@ module Entity
 
     def new_uid
       UUIDTools::UUID.timestamp_create.to_s
-    end
-
-    def find(uid)
-      DomainRepository.find(self.name.underscore, uid)
     end
 
   end
