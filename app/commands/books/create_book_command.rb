@@ -12,6 +12,7 @@ module Books
 
     def execute
       book = Book.create_book(self.to_params)
+      DomainRepository.save(book)
       @id = book.id if book
     end
   end

@@ -1,7 +1,11 @@
 require 'rails_helper'
+require 'asin/adapter'
+
+class Helper
+  include ASIN::Adapter
+end
 
 RSpec.describe Book, type: :model do
-  include ASIN::Adapter
 
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:isbn) }
@@ -16,8 +20,9 @@ RSpec.describe Book, type: :model do
       # end
       # @book_item = items.first
       data = File.readlines("spec/support/book.json").join
+      helper = Helper.new
       json = ActiveSupport::JSON.decode(data)
-      @book_item = handle_type(json, :item)
+      @book_item = helper.handle_type(json, :item)
     end
 
     let(:item) { @book_item }

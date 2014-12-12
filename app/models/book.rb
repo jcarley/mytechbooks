@@ -28,7 +28,6 @@ class Book < ActiveRecord::Base
 
   def on_created_book(event)
     self.assign_attributes(event.data)
-    self.save!
   end
 
 end
