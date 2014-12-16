@@ -30,7 +30,7 @@ module Entity
     do_apply event
     event.aggregate_uid = uid
     applied_events << event
-    event.save!
+    DomainRepository.save(event)
   end
 
 private

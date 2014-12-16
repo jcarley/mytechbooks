@@ -45,9 +45,11 @@ RSpec.describe Book, type: :model do
 
   describe ".create_book" do
 
-    it "creates a new book" do
+    it "creates a new instance of a book" do
       attrs = FactoryGirl.attributes_for(:book)
-      expect { Book.create_book(attrs) }.to change(Book, :count).by(1)
+      book = Book.create_book(attrs)
+      expect(book).to be_an_instance_of(Book)
+      expect(book).to have_attributes(attrs)
     end
 
     it "adds a new uid" do
