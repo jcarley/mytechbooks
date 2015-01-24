@@ -1,7 +1,7 @@
 module Books
   class DeleteBookCommand < Command
 
-    attr_accessor :id
+    attribute :id, Integer
 
     def initialize(id)
       super(:id => id)

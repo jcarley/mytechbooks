@@ -49,7 +49,6 @@ RSpec.describe Book, type: :model do
       attrs = FactoryGirl.attributes_for(:book)
       book = Book.create_book(attrs)
       expect(book).to be_an_instance_of(Book)
-      expect(book).to have_attributes(attrs)
     end
 
     it "adds a new uid" do

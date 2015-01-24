@@ -1,7 +1,9 @@
 module Books
   class ImportBookCommand < Command
 
-    attr_accessor :title, :isbn, :author
+    attribute :title, String
+    attribute :isbn, String
+    attribute :author, String
 
     validates :title, presence: true, length: { maximum: 255 }
     validates :isbn, presence: true

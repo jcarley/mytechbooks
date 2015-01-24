@@ -1,8 +1,8 @@
 class AllBooksQuery
-  include Enumerable
+  include Storage::QueryObject
 
-  def each(&block)
-    Book.all.each(&block)
+  def initialize(repository = BookRepository.new)
+    super
   end
 
 end
