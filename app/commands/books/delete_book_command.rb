@@ -8,7 +8,9 @@ module Books
     end
 
     def execute
-      result = Book.destroy(self.id)
+      book = Book.delete_book(self.id)
+      repository = BookRepository.new
+      repository.delete(book)
     end
 
   end

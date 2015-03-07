@@ -4,16 +4,26 @@ class Book < ActiveRecord::Base
   validates :title, presence: true
   validates :isbn, presence: true
 
-  def self.create_book(params)
-    book = Book.new
-    book.apply_event(:created_book, params.merge(:uid => new_uid))
-    book
-  end
-
   def self.create_from_amz_item(item)
     mapper = BookMapper.new
     attrs = mapper.attributes_for(item)
     self.create_book(attrs)
+  end
+
+  def self.create_book(params)
+    book = Book.create(params)
+    book.apply_event(:created_book, params.merge(:uid => new_uid))
+    book
+  end
+
+  def self.delete_book(id)
+    book = Book.find_by(:id => id)
+    book.delete_book(id)
+  end
+
+  def delete_book(id)
+    apply_event(:deleted_book, id)
+    self
   end
 
   def formatted_published_on

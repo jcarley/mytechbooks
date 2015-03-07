@@ -15,6 +15,10 @@ RSpec.describe Books::DeleteBookCommand do
     it "deletes a book" do
       expect { subject.execute }.to change(Book, :count).by(-1)
     end
+
+    it "records a delete event" do
+      expect { subject.execute }.to change(Event, :count).by(1)
+    end
   end
 
 end

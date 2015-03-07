@@ -37,7 +37,7 @@ private
 
   def do_apply(event)
     method_name = "on_#{event.name.to_s.underscore}".sub(/_event/,'')
-    method(method_name).call(event)
+    method(method_name).call(event) if respond_to?(method_name)
   end
 
 end
